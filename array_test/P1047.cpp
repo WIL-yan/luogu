@@ -22,6 +22,6 @@ int main(){
     for(int j=0;j<=total;j++){
         if(arr[j]) ++count;
     }
-    cout<<count;
+    cout<<count;//随便写一下
 }
 
