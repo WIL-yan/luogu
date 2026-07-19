@@ -1,34 +1,53 @@
 #include<bits/stdc++.h>
+#include<cstring>
 using namespace std;
 
-string s,temp;
-int pos;
+string s;
 
-void cout_number(){
-    long long sum=0;
-    for(int i=pos-1;i>=0;i--){
-        sum=temp[i]-'0'+sum*10;
+void solve_int(string a){
+    while(a.back()=='0'&&a.size()>1){
+        a.pop_back();
     }
-    if(pos){
-        cout<<sum;
+    reverse(a.begin(),a.end());
+    cout<<a;
+}
+void solve_double(string b){
+    while(b.front()=='0'&&b.size()>1){
+        b.erase(b.begin());
     }
-    temp.clear();
-    sum=0;
-    pos=0;
+    reverse(b.begin(),b.end());
+    cout<<b;
 }
 
 int main(){
     cin>>s;
-    for(int i=0;i<s.length();i++){
-        if(s[i]>='0'&&s[i]<='9'){
-            temp+=s[i];
-            ++pos;
-        }
-        else if(s[i]=='/'||s[i]=='%'||s[i]=='.'){
-            cout_number();
-            cout<<s[i];
-        }
+    int pos;
+    pos=s.find('.');
+    if(pos!=string::npos){
+        string a=s.substr(0,pos);
+        string b=s.substr(pos+1);
+        solve_int(a);
+        cout<<'.';
+        solve_double(b);
+        return 0;
     }
-    cout_number();
+    pos=s.find('/');
+    if(pos!=string::npos){
+        string a=s.substr(0,pos);
+        string b=s.substr(pos+1);
+        solve_int(a);
+        cout<<'/';
+        solve_int(b);
+        return 0;
+    }
+    pos=s.find('%');
+    if(pos!=string::npos){
+        string a=s.substr(0,pos);
+        string b=s.substr(pos+1);
+        solve_int(a);
+        cout<<'%';
+        return 0;
+    }
+    solve_int(s);
     return 0;
 }
